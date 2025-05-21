@@ -27,7 +27,6 @@ else
     mkdir $WORKDIR
 fi
 
-# check if postgres is running and wait for it to start
 # sleep and wait for postgres to start
 echo "waiting for PostgreSQL to start"
 while ! pg_isready -q -h localhost -p 5432 -U postgres; do
@@ -59,7 +58,7 @@ for file in "${FILES[@]}"; do
         # unpack the file
         echo "unpacking $file"
         echo gunzip "$file"
-		gunzip "$file"
+		    gunzip "$file"
         # check if the file was unpacked
         if [ $? -ne 0 ]; then
             echo "Error unpacking $file"
@@ -78,11 +77,11 @@ for file in "${FILES[@]}"; do
     # restore the able data
     echo "restoring $tsvfile into $table_name"
     echo psql -d imdb -U postgres -c "COPY ${table_name} FROM '$(pwd)/${tsvfile}' DELIMITER E'\t' QUOTE E'\b' NULL '\N' CSV HEADER"
-	psql -d imdb -U postgres -c "COPY ${table_name} FROM '$(pwd)/${tsvfile}' DELIMITER E'\t' QUOTE E'\b' NULL '\N' CSV HEADER"
+	  psql -d imdb -U postgres -c "COPY ${table_name} FROM '$(pwd)/${tsvfile}' DELIMITER E'\t' QUOTE E'\b' NULL '\N' CSV HEADER"
 
     # remove the file
     echo "removing $tsvfile"
     echo rm -fr "$WORKDIR/$tsvfile"
-	rm -fr "$WORKDIR/$tsvfile"
+	  rm -fr "$WORKDIR/$tsvfile"
 
 done
